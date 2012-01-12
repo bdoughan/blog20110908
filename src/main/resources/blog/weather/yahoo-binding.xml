@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<xml-bindings
+    xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+    package-name="blog.weather"
+    xml-mapping-metadata-complete="true">
+    <xml-schema element-form-default="QUALIFIED">
+        <xml-ns prefix="yweather" namespace-uri="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+    </xml-schema>
+    <java-types>
+        <java-type name="WeatherReport" xml-accessor-type="FIELD">
+            <xml-root-element name="rss"/>
+            <xml-type prop-order="location currentTemperature currentCondition forecast"/>
+            <java-attributes>
+                <xml-attribute java-attribute="location" xml-path="channel/yweather:location/@city"/>
+                <xml-attribute java-attribute="currentTemperature" name="channel/item/yweather:condition/@temp"/>
+                <xml-attribute java-attribute="currentCondition" name="channel/item/yweather:condition/@text"/>
+                <xml-element java-attribute="forecast" name="channel/item/yweather:forecast"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Forecast" xml-accessor-type="FIELD">
+            <java-attributes>
+                <xml-attribute java-attribute="dayOfTheWeek" name="day"/>
+                <xml-attribute java-attribute="low"/>
+                <xml-attribute java-attribute="high"/>
+                <xml-attribute java-attribute="condition" name="text"/>
+            </java-attributes>
+        </java-type>
+    </java-types>
+</xml-bindings>
